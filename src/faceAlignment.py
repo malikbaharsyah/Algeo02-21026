@@ -38,9 +38,6 @@ def faceAlignment(img):
         eye_1 = eyes[0]
         eye_2 = eyes[1]
 
-        #cv2.rectangle(img, (eye_1[0], eye_1[1]), (eye_1[0] + eye_1[2], eye_1[1] + eye_1[3]), (255, 0, 0), 2)
-        #cv2.rectangle(img, (eye_2[0], eye_2[1]), (eye_2[0] + eye_2[2], eye_2[1] + eye_2[3]), (255, 0, 0), 2)
-
         if eye_1[0] < eye_2[0]:
             lEye = eye_1
             rEye = eye_2
@@ -54,9 +51,6 @@ def faceAlignment(img):
         rEye_y = rEye_center[1]
         lEye_x = lEye_center[0]
         lEye_y = lEye_center[1]
-
-        #cv2.circle(img, rEye_center, 2, (0, 0, 255), 1)
-        #cv2.circle(img, lEye_center, 2, (0, 0, 255), 1)
 
         if lEye_y > rEye_y:
             proyeksi = (rEye_x, lEye_y)
