@@ -78,6 +78,8 @@ distance = int(distances.argsort()[::-1][:,0])
 print("distance", distance)
 closest_idx = int(distances.argsort()[::-1][:,0])
 closest_path = os.listdir(path)[closest_idx]
+
+# print nama file gambar yang mirip dengan testface
 print(closest_path)
 
 
