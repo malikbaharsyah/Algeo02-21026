@@ -1,6 +1,4 @@
 import numpy as np
-import sympy as sp
-from sympy import *
 
 # cari nilai tengah dari banyak matrix
 def mean(matrix):       
@@ -8,27 +6,49 @@ def mean(matrix):
 
 # selisih tiap matrix dengan mean
 def selisih(matrix, mean):          
-    return np.int_(np.subtract(matrix, mean))
-
-# hasil selisih yang negatif diubah ke positif
-def ubahNegatif(matrix):            
-    for i in range(len(matrix)):
-        for j in range(len(matrix[0])):
-            for k in range(len(matrix[0][0])):
-                if (matrix[i][j][k] < 0):
-                    matrix[i][j][k] = matrix[i][j][k] * -1
-    return matrix
-
-# menggabungkan matrix selisih
-# (masih bermasalah: kalau pakai 
-# hasil matriks selisih bermasalah 
-# tapi kalau pakai matriks contohSelisih berhasil di konkat)
-# contohSelisih = [[[1, 0, 0], [1, 1, 0], [0, 0, 1]], [[0, 1, 0], [0, 0, 0], [1, 0, 1]]]
-def concat(matrix):     
-    for i in range(len(matrix)-1):
-        matrix[0] = np.concatenate((matrix[0], matrix[i+1]), axis=1)
-    return matrix[0]
+    return np.abs(np.int_(np.subtract(matrix, mean)))
 
 # mencari covarian matrix yaitu A.A^T
 def kovarian(matrix):      
-    return np.dot(matrix, np.transpose(matrix))
+    result = []
+    for i in range(0, len(matrix),1):
+        result.append(np.dot(np.transpose(matrix[i]), matrix[i]))
+    return np.array(result)
+
+def QRDecomposition(matrix):
+    n, m = matrix.shape 
+    matrixQ = np.empty((n, n)) 
+    matrixU = np.empty((n, n)) 
+    matrixU[:, 0] = matrix[:, 0]      
+    matrixQ[:, 0] = matrixU[:, 0] / np.linalg.norm(matrixU[:, 0]) 
+    for i in range(1, n):       
+        matrixU[:, i] = matrix[:, i]  
+        for j in range(i):    
+            matrixU[:, i] -= (matrix[:, i] @ matrixQ[:, j]) * matrixQ[:, j]
+        matrixQ[:, i] = matrixU[:, i] / np.linalg.norm(matrixU[:, i])
+    matrixR = np.zeros((n, m))
+    for i in range(n):
+        for j in range(i, m):   
+            matrixR[i, j] = matrix[:, j] @ matrixQ[:, i]    
+    return matrixQ, matrixR 
+
+def eigVec(matrix):
+    eigVector = np.eye(matrix.shape[0])
+    X = np.copy(matrix)
+    for i in range(1):
+        matrixQ, matrixR = QRDecomposition(X)
+        eigVector = eigVector @ matrixQ
+        X = matrixR @ matrixQ
+    return np.array(eigVector)
+
+def eigVecList(matrix):
+    result = []
+    for i in range(len(matrix)):
+        result.append(eigVec(matrix[i]))
+    return np.array(result)
+
+def eigFace(selisih, eigVector):
+    result = []
+    for i in range(len(selisih)):
+        result.append(np.dot(eigVector[i], selisih[i]))
+    return np.array(result)
