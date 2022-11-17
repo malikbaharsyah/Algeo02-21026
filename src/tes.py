@@ -10,6 +10,7 @@ path = "E:/Kulyah/Semester 3/Aljabar Linier dan Geometri/Tubes/Algeo02-21026/src
 facematrix = getFolder.folderToMatriks(path)
 facematrix_t = np.transpose(facematrix)
 
+
 print("facematrix_t")
 print(facematrix_t)
 mean_face = function.mean(facematrix_t)

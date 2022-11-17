@@ -18,6 +18,7 @@ def folderToMatriks(path):
     matriks = np.delete(matriks, 0, axis=0)
     return matriks
 
+
 def getImageFromPath(path):
     img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
     img = faceAlignment.faceAlignment(img)
