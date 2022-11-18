@@ -2,18 +2,19 @@ import numpy as np
 
 # cari nilai tengah dari banyak matrix
 def mean(matrix):       
-    return np.mean(matrix, axis=0).astype(int)
+    return np.mean(matrix, axis=1).astype(int)
 
 # selisih tiap matrix dengan mean
 def selisih(matrix, mean):          
-    return np.abs(np.int_(np.subtract(matrix, mean)))
+    return np.subtract(matrix, mean)
 
 # mencari covarian matrix yaitu A.A^T
 def kovarian(matrix):      
-    result = []
-    for i in range(0, len(matrix),1):
-        result.append(np.dot(np.transpose(matrix[i]), matrix[i]))
-    return np.array(result)
+    #result = []
+    #for i in range(0, len(matrix),1):
+    #    result.append(np.dot(np.transpose(matrix[i]), matrix[i]))
+    #return np.array(result)
+    return np.matmul(np.transpose(matrix), matrix)
 
 def QRDecomposition(matrix):
     n, m = matrix.shape 

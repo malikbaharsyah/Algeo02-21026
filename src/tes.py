@@ -28,7 +28,7 @@ print(subtracted_face)
 print(subtracted_face.shape)
 
 print("kovarian")
-cov = function.kovarian(np.transpose(subtracted_face))
+cov = function.kovarian(subtracted_face)
 print(cov)
 print(cov.shape)
 
@@ -54,7 +54,7 @@ print(eigenfaces.shape)
 
 
 
-testface = getFolder.getImageFromPath(("E:/Kulyah/Semester 3/Aljabar Linier dan Geometri/Tubes/Algeo02-21026/test/5.jpg"))
+testface = getFolder.getImageFromPath(("E:/Kulyah/Semester 3/Aljabar Linier dan Geometri/Tubes/Algeo02-21026/test/1.jpg"))
 testface = np.transpose(testface)
 print(testface.shape)
 
@@ -78,7 +78,7 @@ distances = np.square(all_proj - tes).sum(axis = 0)
 distance = int(distances.argsort()[::-1][:,0])
 print("distance", distance)
 closest_idx = int(distances.argsort()[::-1][:,0])
-closest_path = os.listdir(path)[closest_idx]
+closest_path = os.path.splitext(os.listdir(path)[closest_idx])[0]
 
 # print nama file gambar yang mirip dengan testface
 print(closest_path)
