@@ -29,16 +29,16 @@ result_active = Image.open("./assets/result2.png")
 window.result_inactive = ImageTk.PhotoImage(result_inactive)
 window.result_active = ImageTk.PhotoImage(result_active)
 
-objPic = ' '
-filepath = ' '
+objPic = ''
+pathFolder = ''
 
 def Directory():
-    filename = filedialog.askopenfilename(title='Choose Picture')
-    return filename
+    pathGambar = filedialog.askopenfilename(title='Pilih Gambar Untuk Dites')
+    return pathGambar
 
 def DirectoryFolder():
-    filename = filedialog.askdirectory(title='Choose Directory')
-    return filename
+    pathFolder = filedialog.askdirectory(title='Pilih Dataset')
+    return pathFolder
 
 def ChooseFolder():
     global filepath

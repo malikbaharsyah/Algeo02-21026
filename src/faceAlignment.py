@@ -80,4 +80,4 @@ def faceAlignment(img):
     img = cv2.resize(img, (256,256))
 
     return img
-
+    

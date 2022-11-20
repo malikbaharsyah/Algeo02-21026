@@ -66,3 +66,4 @@ while (lanjut):
 #         mean_temp = np.matrix(mean_temp)
 #         facematrix = mean_temp
 #     i += 1
+

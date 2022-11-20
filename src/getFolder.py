@@ -25,3 +25,4 @@ def getImageFromPath(path):
     img = img.ravel()
     img = np.matrix(img)
     return img
+

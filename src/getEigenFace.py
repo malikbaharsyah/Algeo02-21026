@@ -32,3 +32,4 @@ def detectHasil(eigenfaces, datapath, testpath):
     idx_terdekat = int(list_jarak.argsort()[::-1][:,0])
     file_terdekat = os.listdir(datapath)[idx_terdekat]
     return file_terdekat
+
