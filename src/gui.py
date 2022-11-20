@@ -4,6 +4,7 @@ from tkinter import filedialog
 import os
 import getEigenFace
 
+
 window=Tk()
 window.geometry("945x585")
 window.iconbitmap(r'./assets/icon.ico')
@@ -13,6 +14,11 @@ window.resizable(False, False)
 bg = PhotoImage(file="./assets/dilanbg1.png")
 labelhome = Label(window, image=bg, border=0)
 labelhome.pack()
+
+persen_lbl = PhotoImage(file="./assets/persentase.png")
+labelpersen = Label(window, image=persen_lbl, border=0, bg='#FFF7DF')
+labelpersen.place(x=45, y=390)
+
 
 img_inactive = Image.open("./assets/img1.png")
 img_active = Image.open("./assets/img2.png")
@@ -49,7 +55,6 @@ def ChooseFolder():
     eigenfaces = getEigenFace.getEigenFace(filepath)
     imglbl1=Label(window, text=out, bg='#FFF7DF')#my_string_var1.set(out))
     imglbl1.place(x=172, y=228)
-    
 
 def ImageProccess():
     global objPic
@@ -65,15 +70,18 @@ def ImageProccess():
     out=data[1]
     imglbl2=Label(window, text=out, bg='#FFF7DF')#my_string_var2.set(out))
     imglbl2.place(x=172, y=288)
+    
     hasil = getEigenFace.detectHasil(eigenfaces, filepath, objPic)
-    image2 = Image.open(os.path.join(filepath, hasil))
+    persentase = hasil[1]
+    persen_text = Label(window, text=str(persentase)+"%", bg='#FFF7DF', font=("Arial", 40, "bold"), fg="#76460E")
+    persen_text.place(x=50, y=425)
+
+    image2 = Image.open(os.path.join(filepath, hasil[0]))
     image2 = image2.resize((256, 256), Image.ANTIALIAS)
     image2X = ImageTk.PhotoImage(image2)
     label2 = Label(window, image=image2X, )
     label2.image = image2X
     label2.place(x=625, y=140)
-    
-
 
     
 
@@ -116,6 +124,9 @@ button2.place(x=40, y=220)
 button3 = Button(window, image=window.result_inactive, border=0, bg='#FFF7DF', activebackground='#FFF7DF')
 button3.place(x=45, y=348)
 
+tipek_lbl = PhotoImage(file="./assets/typex.png")
+labeltipek = Label(window, image=tipek_lbl, border=0, bg='#FFF7DF')
+labeltipek.place(x=45, y=348)
 
 
 button1.bind("<Enter>", on_enter1)
@@ -125,4 +136,5 @@ button2.bind("<Leave>", on_leave2)
 button3.bind("<Enter>", on_enter3)
 button3.bind("<Leave>", on_leave3)
 window.bind("<Motion>", change_cursor)
+
 window.mainloop()

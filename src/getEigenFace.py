@@ -1,9 +1,7 @@
-import cv2
 import numpy as np
 import os
 import getFolder
 import function
-import qr2
 
 def getEigenFace(path):
     global mean_face
@@ -13,8 +11,8 @@ def getEigenFace(path):
     mean_face = function.mean(facematrix_t)
     subtracted_face = function.selisih(facematrix_t, mean_face)
     cov = function.kovarian(subtracted_face)
-    evals = qr2.find_eig_qr(cov)[0]
-    egvecs = qr2.find_eig_qr(cov)[1]
+    evals = function.eigValVec(cov)[0]
+    egvecs = function.eigValVec(cov)[1]
     idx = evals.argsort()[::-1]   
     evals = evals[idx]
     evects = egvecs[:,idx]
@@ -28,8 +26,13 @@ def detectHasil(eigenfaces, datapath, testpath):
     testface = function.selisih(testface, mean_face)
     proyeksi_test = np.matmul(np.transpose(eigenfaces), testface)
     proyeksi_data = np.matmul(np.transpose(eigenfaces), subtracted_face)
-    list_jarak = np.square(proyeksi_data - proyeksi_test).sum(axis = 0)
-    idx_terdekat = int(list_jarak.argsort()[::-1][:,0])
-    file_terdekat = os.listdir(datapath)[idx_terdekat]
-    return file_terdekat
-
+    min = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,0])
+    nama = os.listdir(datapath)[0]
+    persentase = np.mean(proyeksi_test / proyeksi_data[:,0])
+    for i in range(1, len(os.listdir(datapath))):
+        temp = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,i])
+        if temp < min:
+            min = temp
+            nama = os.listdir(datapath)[i]
+            persentase = np.mean(proyeksi_test / proyeksi_data[:,i])
+    return nama, persentase
