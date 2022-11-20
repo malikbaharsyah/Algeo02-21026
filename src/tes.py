@@ -4,86 +4,65 @@ import os
 import getFolder
 import function
 import qr2
+import getEigenFace
 
-path = "E:/Kulyah/Semester 3/Aljabar Linier dan Geometri/Tubes/Algeo02-21026/src/dataset"
+dataset = "E:/Kulyah/Semester 3/Aljabar Linier dan Geometri/Tubes/Algeo02-21026/src/dataset"
 
-facematrix = getFolder.folderToMatriks(path)
-facematrix_t = np.transpose(facematrix)
-
-
-print("facematrix_t")
-print(facematrix_t)
-mean_face = function.mean(facematrix_t)
-
-print("mean")
-print(mean_face)
-print(mean_face.shape)
-temp = np.reshape(mean_face, (256, 256))
-cv2.imwrite("test_mean.jpg", temp)
-
-subtracted_face = function.selisih(facematrix_t, mean_face)
-
-print("subtracted_face")
-print(subtracted_face)
-print(subtracted_face.shape)
-
-print("kovarian")
-cov = function.kovarian(subtracted_face)
-print(cov)
-print(cov.shape)
-
-print("reduced eigen")
-evals = qr2.find_eig_qr(cov)[0]
-egvecs = qr2.find_eig_qr(cov)[1]
-idx = evals.argsort()[::-1]   
-evals = evals[idx]
-evects = egvecs[:,idx]
-print("evals")
-print(evals)
-print("eigvects")
-print(egvecs)
-print(egvecs.shape)
-
-eigenfaces = np.matmul(subtracted_face, evects[:,0:25])
-
-
-print("eigenfaces")
-
+eigenfaces = getEigenFace.getEigenFace(dataset)
 print(eigenfaces)
-print(eigenfaces.shape)
+
+
+print("BERHASIL MELAKUKAN TRAINING")
+
+pathtest = "E:/Kulyah/Semester 3/Aljabar Linier dan Geometri/Tubes/Algeo02-21026/test"
 
 
 
-testface = getFolder.getImageFromPath(("E:/Kulyah/Semester 3/Aljabar Linier dan Geometri/Tubes/Algeo02-21026/test/1.jpg"))
-testface = np.transpose(testface)
-print(testface.shape)
+lanjut = True
+found = False
 
-print("selisih baru")
-testface = function.selisih(testface, mean_face)
-print(testface)
-print(testface.shape)
+while (lanjut):
+    inputGambar = str(input("Masukkan nama file gambar untuk test: "))
+    while(not found):
+        if inputGambar in os.listdir(pathtest):
+            found = True
+        else:
+            inputGambar = str(input("File tidak ditemukan, masukkan nama file gambar: "))
 
+    testpath = os.path.join(pathtest, inputGambar)
 
-print("tes")
-tes = np.matmul(np.transpose(eigenfaces), testface)
-all_proj = np.matmul(np.transpose(eigenfaces), subtracted_face)
-print(tes)
-print(tes.shape)
+    print("Gambar yang terdeteksi adalah: ", getEigenFace.detectHasil(eigenfaces, datapath=dataset, testpath=testpath))
 
-print("all proj")
-print(all_proj)
-print(all_proj.shape)
-
-distances = np.square(all_proj - tes).sum(axis = 0)
-distance = int(distances.argsort()[::-1][:,0])
-print("distance", distance)
-closest_idx = int(distances.argsort()[::-1][:,0])
-closest_path = os.path.splitext(os.listdir(path)[closest_idx])[0]
-
-# print nama file gambar yang mirip dengan testface
-print(closest_path)
-
+    inputy = str(input("Apakah anda ingin mencoba lagi? (y/n): "))
+    valid = False
+    while (not valid):
+        if inputy == "y":
+            valid = True
+            found = False
+        elif inputy == "n":
+            valid = True
+            lanjut = False
+        else:
+            inputy = str(input("Input tidak valid, masukkan kembali: "))
 
 #for i in range(eigenfaces.shape[1]):
 #    eigenface = eigenfaces[:,i].reshape((256, 256))
 #    cv2.imwrite(str(i+1) +"_hasiltemp_cv2.jpg", eigenface)
+
+# for file in os.listdir(path):
+#     print("Proses mengolah folder %d/%d" % (i,nData), end='\r')
+#     if i != 1:
+#         temp = getFolder.folderToMatriks(os.path.join(path, file))
+#         temp = np.transpose(temp)
+#         mean_temp = function.mean(temp)
+#         mean_temp = mean_temp.ravel()
+#         mean_temp = np.matrix(mean_temp)
+#         facematrix = np.r_[facematrix, mean_temp]
+#     else:
+#         facematrix = getFolder.folderToMatriks(os.path.join(path, os.listdir(path)[0]))
+#         facematrix = np.transpose(facematrix)
+#         mean_temp = function.mean(facematrix)
+#         mean_temp = mean_temp.ravel()
+#         mean_temp = np.matrix(mean_temp)
+#         facematrix = mean_temp
+#     i += 1
