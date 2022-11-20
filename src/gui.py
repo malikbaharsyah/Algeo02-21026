@@ -2,7 +2,7 @@ from tkinter import*
 from PIL import Image, ImageTk
 from tkinter import filedialog
 import os
-
+import getEigenFace
 
 window=Tk()
 window.geometry("945x585")
@@ -42,10 +42,13 @@ def DirectoryFolder():
 
 def ChooseFolder():
     global filepath
+    global eigenfaces
     filepath = DirectoryFolder()
     dataF = os.path.split(filepath)
     out=dataF[1]
-    imglbl1=Label(window, my_string_var1.set(out))
+    eigenfaces = getEigenFace.getEigenFace(filepath)
+    imglbl1=Label(window, text=out, bg='#FFF7DF')#my_string_var1.set(out))
+    imglbl1.place(x=172, y=228)
     
 
 def ImageProccess():
@@ -60,7 +63,16 @@ def ImageProccess():
     label1.place(x=325, y=140)
     data = os.path.split(objPic)
     out=data[1]
-    imglbl2=Label(window, my_string_var2.set(out))
+    imglbl2=Label(window, text=out, bg='#FFF7DF')#my_string_var2.set(out))
+    imglbl2.place(x=172, y=288)
+    hasil = getEigenFace.detectHasil(eigenfaces, filepath, objPic)
+    image2 = Image.open(os.path.join(filepath, hasil))
+    image2 = image2.resize((256, 256), Image.ANTIALIAS)
+    image2X = ImageTk.PhotoImage(image2)
+    label2 = Label(window, image=image2X, )
+    label2.image = image2X
+    label2.place(x=625, y=140)
+    
 
 
     
@@ -87,15 +99,15 @@ def on_leave3(enter):
     button3.config(image=window.result_inactive)
 
 
-my_string_var1 = StringVar()
-my_string_var1.set("No file choosen")
-my_label1 = Label(window, textvariable = my_string_var1, bg='#FFF7DF', fg = '#624E0E', font=("times", 9), border=0)
-my_label1.place(x=175, y=228)
+# my_string_var1 = StringVar()
+# my_string_var1.set("No file choosen")
+# my_label1 = Label(window, textvariable = my_string_var1, bg='#FFF7DF', fg = '#624E0E', font=("times", 9), border=0)
+# my_label1.place(x=175, y=228)
 
-my_string_var2 = StringVar()
-my_string_var2.set("No file choosen")
-my_label2 = Label(window, textvariable = my_string_var2, bg='#FFF7DF', fg = '#6E5912', font=("times", 9), border=0)
-my_label2.place(x=175, y=288)
+# my_string_var2 = StringVar()
+# my_string_var2.set("No file choosen")
+# my_label2 = Label(window, textvariable = my_string_var2, bg='#FFF7DF', fg = '#6E5912', font=("times", 9), border=0)
+# my_label2.place(x=175, y=288)
 
 button1 = Button(window, image=window.img_inactive, border=0, bg='#FFF7DF', activebackground='#FFF7DF',command=ImageProccess)
 button1.place(x=40, y=280)
@@ -103,6 +115,8 @@ button2 = Button(window, image=window.folder_inactive, border=0, bg='#FFF7DF', a
 button2.place(x=40, y=220)
 button3 = Button(window, image=window.result_inactive, border=0, bg='#FFF7DF', activebackground='#FFF7DF')
 button3.place(x=45, y=348)
+
+
 
 button1.bind("<Enter>", on_enter1)
 button1.bind("<Leave>", on_leave1)
@@ -112,4 +126,3 @@ button3.bind("<Enter>", on_enter3)
 button3.bind("<Leave>", on_leave3)
 window.bind("<Motion>", change_cursor)
 window.mainloop()
-    
