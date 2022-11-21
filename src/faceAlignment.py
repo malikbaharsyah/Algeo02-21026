@@ -1,7 +1,5 @@
 import cv2
 import numpy as np
-import os
-from PIL import Image
 
 def findBiggest(matrix):
     maxArea = 0
@@ -19,9 +17,9 @@ def jarak(a,b):
 def faceAlignment(img):
 
     face_detector = cv2.CascadeClassifier(cv2.data.haarcascades + "/haarcascade_frontalface_default.xml")
-    eye_detector = cv2.CascadeClassifier(cv2.data.haarcascades + "/haarcascade_eye.xml")
-    face_coordinate = face_detector.detectMultiScale(img)
-    eyes = eye_detector.detectMultiScale(img)
+    #eye_detector = cv2.CascadeClassifier(cv2.data.haarcascades + "/haarcascade_eye.xml")
+    face_coordinate = face_detector.detectMultiScale(img, 1.1, 4)
+    #eyes = eye_detector.detectMultiScale(img)
 
     # if (len(eyes) > 1):
     #     if (len(eyes) > 2):
@@ -72,9 +70,9 @@ def faceAlignment(img):
     #     img = Image.fromarray(img)
     #     img = np.array(img.rotate(dir * sudut))
 
-    # if len(face_coordinate) > 0:
-    #     face_x, face_y, face_w, face_h = findBiggest(face_coordinate)
-    #     img = img[face_y:face_y + face_h, face_x:face_x + face_w]
+    if len(face_coordinate) > 0:
+        face_x, face_y, face_w, face_h = findBiggest(face_coordinate)
+        img = img[face_y:face_y + face_h, face_x:face_x + face_w]
 
 
     img = cv2.resize(img, (256,256))
