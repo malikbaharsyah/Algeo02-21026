@@ -163,7 +163,6 @@ tipek_lbl = PhotoImage(file="./assets/typex.png")
 labeltipek = Label(window, image=tipek_lbl, border=0, bg='#FFF7DF')
 labeltipek.place(x=45, y=348)
 
-
 button1.bind("<Enter>", on_enter1)
 button1.bind("<Leave>", on_leave1)
 button2.bind("<Enter>", on_enter2)
