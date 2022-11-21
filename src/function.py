@@ -12,6 +12,7 @@ def selisih(matrix, mean):
 def kovarian(matrix):      
     return np.matmul(np.transpose(matrix), matrix)
 
+# mencari nilai eigen vector dan eigen value dengan metode QR
 def QRDecomposition(matrix):
     n, m = matrix.shape 
     matrixQ = np.empty((n, n)) 
@@ -21,23 +22,24 @@ def QRDecomposition(matrix):
     for i in range(1, n):       
         matrixU[:, i] = matrix[:, i]  
         for j in range(i):    
-            matrixU[:, i] -= (matrix[:, i] @ matrixQ[:, j]) * matrixQ[:, j]
+            matrixU[:, i] -= np.matmul(matrix[:, i], matrixQ[:, j]) * matrixQ[:, j]
         matrixQ[:, i] = matrixU[:, i] / EuclideanDistance(matrixU[:, i])
     matrixR = np.zeros((n, m))
     for i in range(n):
         for j in range(i, m):   
-            matrixR[i, j] = matrix[:, j] @ matrixQ[:, i]    
+            matrixR[i, j] = np.matmul(matrix[:, j], matrixQ[:, i]) 
     return matrixQ, matrixR 
 
 def eigValVec(matrix):
     eigVector = np.eye(matrix.shape[0])
     X = np.copy(matrix)
     for i in range(1):
-            Q,R = QRDecomposition(X)
-            eigVector = np.matmul(eigVector, Q)
-            X = np.matmul(R, Q)
+        Q, R = QRDecomposition(X)
+        eigVector = np.matmul(eigVector, Q)
+        X = np.matmul(R, Q)
     return np.diag(X), eigVector
 
+# mencari euclidean distance
 def EuclideanDistance(matrix):
     return np.sqrt(np.sum(np.square(matrix)))
 
