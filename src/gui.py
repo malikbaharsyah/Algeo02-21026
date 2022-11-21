@@ -4,7 +4,6 @@ from tkinter import filedialog
 import os
 import getEigenFace
 
-
 window=Tk()
 window.geometry("945x585")
 window.iconbitmap(r'./assets/icon.ico')
@@ -45,7 +44,7 @@ def Directory():
 def DirectoryFolder():
     pathFolder = filedialog.askdirectory(title='Pilih Dataset')
     return pathFolder
-
+    
 def ChooseFolder():
     global filepath
     global eigenfaces
@@ -55,6 +54,20 @@ def ChooseFolder():
     eigenfaces = getEigenFace.getEigenFace(filepath)
     imglbl1=Label(window, text=out, bg='#FFF7DF')#my_string_var1.set(out))
     imglbl1.place(x=172, y=228)
+    popupmsg("Proses mendapatkan gambar menjadi matriks pada folder "+out+" selesai")
+
+#make a pop up message after get the filepath
+def popupmsg(msg):
+    popup = Tk()
+    popup.configure(background='#FFF7DF')
+    popup.iconbitmap(r'./assets/icon.ico')
+    popup.geometry("+%d+%d" % ((window.winfo_screenwidth() - 500) / 2, (window.winfo_screenheight() - 100) / 2))
+    popup.title("Yeay!")
+    label = Label(popup, text=msg, font=("Arial", 10), bg='#FFF7DF', fg="#76460E")
+    label.pack(side="top", fill="x", pady=10)
+    B1 = Button(popup, text="Okay", command = popup.destroy)
+    B1.pack()
+    popup.mainloop()
 
 def ImageProccess():
     global objPic
@@ -68,8 +81,8 @@ def ImageProccess():
     label1.place(x=325, y=140)
     data = os.path.split(objPic)
     out=data[1]
-    imglbl2=Label(window, text=out, bg='#FFF7DF')#my_string_var2.set(out))
-    imglbl2.place(x=172, y=288)
+    imglbl2=Label(window, text=out, bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")#my_string_var2.set(out))
+    imglbl2.place(x=320, y=426)
     
     hasil = getEigenFace.detectHasil(eigenfaces, filepath, objPic)
     persentase = hasil[1]
@@ -77,6 +90,8 @@ def ImageProccess():
     persen_text.place(x=50, y=425)
 
     image2 = Image.open(os.path.join(filepath, hasil[0]))
+    nama1=Label(window, text=hasil[0], bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")
+    nama1.place(x=620, y=426)
     image2 = image2.resize((256, 256), Image.ANTIALIAS)
     image2X = ImageTk.PhotoImage(image2)
     label2 = Label(window, image=image2X, )
@@ -84,7 +99,6 @@ def ImageProccess():
     label2.place(x=625, y=140)
 
     
-
 def change_cursor(event):
     window.config(cursor="heart")
 
