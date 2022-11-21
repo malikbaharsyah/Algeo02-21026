@@ -142,17 +142,6 @@ def on_enter3(event):
 def on_leave3(enter):
     button3.config(image=window.result_inactive)
 
-
-# my_string_var1 = StringVar()
-# my_string_var1.set("No file choosen")
-# my_label1 = Label(window, textvariable = my_string_var1, bg='#FFF7DF', fg = '#624E0E', font=("times", 9), border=0)
-# my_label1.place(x=175, y=228)
-
-# my_string_var2 = StringVar()
-# my_string_var2.set("No file choosen")
-# my_label2 = Label(window, textvariable = my_string_var2, bg='#FFF7DF', fg = '#6E5912', font=("times", 9), border=0)
-# my_label2.place(x=175, y=288)
-
 button1 = Button(window, image=window.img_inactive, border=0, bg='#FFF7DF', activebackground='#FFF7DF',command=ImageProccess)
 button1.place(x=40, y=280)
 button2 = Button(window, image=window.folder_inactive, border=0, bg='#FFF7DF', activebackground='#FFF7DF', command=ChooseFolder)

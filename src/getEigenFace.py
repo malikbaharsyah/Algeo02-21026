@@ -36,6 +36,7 @@ def detectHasil(eigenfaces, datapath, testpath):
     proyeksi_data = np.matmul(np.transpose(eigenfaces), subtracted_face)
     min = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,0])
     nama = os.listdir(datapath)[0]
+    
     persentase = np.sum(proyeksi_test)/np.sum(proyeksi_data[:,0]) * 100
     for i in range(1, len(os.listdir(datapath))):
         temp = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,i])
