@@ -3,11 +3,11 @@
 > Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
-* [General Info](#general-information)
-* [Technologies Used](#technologies-used)
-* [Features](#features)
-* [Screenshots](#screenshots)
-* [Structures](#structures)
+* [Deskripsi Umum](#deskripsi-umum)
+* [Teknologi](#teknologi)
+* [Fitur](#fitur)
+* [Tampilan](#tampilan)
+* [Struktur](#struktur)
 * [Setup](#setup)
 * [Usage](#usage)
 
@@ -27,24 +27,30 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 
 
 ## Fitur
-List the ready features here:
-- Face Recognition in images
-- Face Recognition in real-time with webcam
+- Face Recognition berdasarkan file gambar
+- Face Recognition berdasarkan webcam
 
 
-## Screenshots
+## Tampilan
+![Tampilan.png]( src/Tampilan/Tampilan.png )
+
+## Struktur
 
 
-## Structures
+## Cara menjalankan program
+1. Install seluruh library yang diperlukan (numpy, tkinter, opencv, pillow)
+2. Clone repositori ini
+3. Buka cmd pada windows atau terminal pada Linux
+4. Ubah directory ke lokasi repositori yang sudah di-clone
+5. Ketik 'python src/Algoritma/main.py' pada cmd atau windows yang directorinya telah diubah
+6. Program sudah dapat dijalankan dengan menekan tombol "choose folder" untuk memilih folder dataset
+7. Notifikasi akan muncul setelah dataset berhasil di-train
+8. Pengguna dapat memilih deteksi wajah berdasarkan file gambar dengan menekan tombol "choose image"
+    atau webcam secara realtime dengan menekan tombol "open camera"
+9. Program akan menampilkan nama gambar yang mirip
 
 
-## Setup
-1. Go to src folder
-2.
-3.
-
-
-## Usage
+## 
 How does one go about using it?
 Provide various use cases and code examples here.
 
