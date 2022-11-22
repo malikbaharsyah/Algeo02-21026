@@ -32,10 +32,10 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 ### Tampilan Awal
 ![Tampilan.png]( src/Tampilan/Tampilan.png )
 
-### Tampilan Setelah Pencocokan Wajah
+### Tampilan Setelah Pengenalan Wajah
 ![Tampilan1.png]( src/Tampilan/Tampilan1.png )
 
-### Tampilan Pencocokan Wajah dengan Webcam
+### Tampilan Pengenalan Wajah dengan Webcam
 ![Tampilan2.png]( src/Tampilan/Tampilan2.png )
 
 
