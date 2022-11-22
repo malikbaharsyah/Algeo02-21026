@@ -1,6 +1,5 @@
 # Tugas Besar 2 IF 2123 Aljabar Linier dan Geometri
 > Aplikasi Nilai Eigen dan EigenFace pada Pengenalan Wajah (Face Recognition)
-> Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [Deskripsi Umum](#deskripsi-umum)
@@ -30,12 +29,83 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 
 
 ## Tampilan
+### Tampilan Awal
 ![Tampilan.png]( src/Tampilan/Tampilan.png )
+
+### Tampilan Setelah Pencocokan Wajah
 ![Tampilan1.png]( src/Tampilan/Tampilan1.png )
 ![Tampilan2.png]( src/Tampilan/Tampilan2.png )
 
-## Struktur
+### Tampilan Pencocokan Wajah dengan Webcam
+![Tampilan2.png]( src/Tampilan/Tampilan2.png )
 
+
+## Struktur
+```bash
+.
+│   README.md
+│
+├───doc                             # Laporan
+│   ├───Algeo02-21026.pdf
+├───src                             # Source code
+│   ├───Algoritma                   # Algoritma
+│   │       faceAlignment.py
+│   │       function.py
+│   │       getEigenFace.py
+│   │       getFolder.py
+│   │       gui.py
+│   │       main.py
+│   │
+│   ├───Assets                        # Assets
+│   │       cam.png
+│   │       detect.png
+│   │       dilanbg1.png
+│   │       folder1.png
+│   │       folder2.png
+│   │       icon.ico
+│   │       img1.png
+│   │       img2.png
+│   │       notfound.png
+│   │       presentase.png
+│   │       result1.png
+│   │       result2.png
+│   │       train.png
+│   │       typex.png
+│   │
+│   ├───Dataset                        # Dataset   
+│   │       Copa.jpg
+│   │       Copa1.jpg
+│   │       Copa2.jpg
+│   │       Copa3.jpg
+│   │       Copa4.jpg
+│   │       Malik.jpg
+│   │       Malik1.jpg
+│   │       Malik2.jpg
+│   │       Malik3.jpg
+│   │       Malik4.jpg
+│   │
+│   ├───Tampilan                      # Tampilan
+│   │       Tampilan.png
+│   │       Tampilan1.png
+│   │       
+└───test                              # Testing cases
+            Copa1.jpg
+            Copa2.jpg
+            Copa3.jpg
+            Copa4.jpg
+            Copa5.jpg
+            Jauza1.jpg
+            Jauza2.jpg
+            Jauza3.jpg
+            Jauza4.jpg
+            Jauza5.jpg
+            Malik.jpg
+            Malik1.jpg
+            Malik2.jpg
+            Malik3.jpg
+            Malik4.jpg
+
+```
 
 ## Cara menjalankan program
 1. Install seluruh library yang diperlukan (numpy, tkinter, opencv, pillow)
