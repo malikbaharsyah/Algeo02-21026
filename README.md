@@ -44,7 +44,10 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 4. Ubah directory ke lokasi repositori yang sudah di-clone
 5. Ketik 'python src/Algoritma/main.py' pada cmd atau windows yang directorinya telah diubah
 6. Program sudah dapat dijalankan dengan menekan tombol "choose folder" untuk memilih folder dataset
-7. Program akan memunculkan notifikasi dataset berhasil di-train
+7. Notifikasi akan muncul setelah dataset berhasil di-train
+8. Pengguna dapat memilih deteksi wajah berdasarkan file gambar dengan menekan tombol "choose image"
+    atau webcam secara realtime dengan menekan tombol "open camera"
+9. Program akan menampilkan nama gambar yang mirip
 
 
 ## 
