@@ -98,7 +98,7 @@ def ImageProccess():
     label1.place(x=325, y=140)
     data = os.path.split(objPic)
     out=data[1]
-    imglbl2=Label(window, text=out, bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E", border=25)
+    imglbl2=Label(window, text=out, bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")
     imglbl2.place(x=320, y=426)   
     hasil = getEigenFace.detectHasil(eigenfaces, filepath, objPic)
 
