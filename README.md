@@ -8,8 +8,7 @@
 * [Fitur](#fitur)
 * [Tampilan](#tampilan)
 * [Struktur](#struktur)
-* [Setup](#setup)
-* [Usage](#usage)
+* [Cara menjalankan program](#cara-menjalankan-program)
 
 
 ## Deskripsi Umum
@@ -23,7 +22,6 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 - Pillow    -   versi 9.3.0
 - time
 - os
-
 
 
 ## Fitur
@@ -49,9 +47,3 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
     atau webcam secara realtime dengan menekan tombol "open camera"
 9. Program akan menampilkan nama gambar yang mirip
 
-
-## 
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
