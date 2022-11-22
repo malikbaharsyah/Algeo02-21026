@@ -2,6 +2,7 @@
 > Aplikasi Nilai Eigen dan EigenFace pada Pengenalan Wajah (Face Recognition)
 
 
+
 ## Table of Contents
 * [Deskripsi Umum](#deskripsi-umum)
 * [Teknologi](#teknologi)
@@ -29,11 +30,13 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 - Face Recognition berdasarkan webcam
 
 
+
 ## Tampilan 
 ### Tampilan Awal
 ![Tampilan.png]( src/Tampilan/Tampilan.png )
 
 ### Tampilan Pencocokan Wajah dengan Gambar
+
 ![Tampilan1.png]( src/Tampilan/Tampilan1.png )
 
 ### Tampilan Pencocokan Wajah dengan Webcam
