@@ -3,6 +3,8 @@ from PIL import Image, ImageTk
 from tkinter import filedialog
 import os
 import getEigenFace
+import cv2
+import numpy as np
 
 
 window=Tk()
@@ -14,10 +16,6 @@ window.resizable(False, False)
 bg = PhotoImage(file="./assets/dilanbg1.png")
 labelhome = Label(window, image=bg, border=0)
 labelhome.pack()
-
-persen_lbl = PhotoImage(file="./assets/persentase.png")
-labelpersen = Label(window, image=persen_lbl, border=0, bg='#FFF7DF')
-labelpersen.place(x=45, y=390)
 
 extime_1 = PhotoImage(file="./assets/train.png")
 labelextime1 = Label(window, image=extime_1, border=0, bg='#FFF7DF')
@@ -38,13 +36,14 @@ folder_active = Image.open("./assets/folder2.png")
 window.folder_inactive= ImageTk.PhotoImage(folder_inactive)
 window.folder_active= ImageTk.PhotoImage(folder_active)
 
-result_inactive = Image.open("./assets/result1.png")
-result_active = Image.open("./assets/result2.png") 
+result_inactive = Image.open("./assets/cam.png")
+result_active = Image.open("./assets/cam.png") 
 window.result_inactive = ImageTk.PhotoImage(result_inactive)
 window.result_active = ImageTk.PhotoImage(result_active)
 
 objPic = ''
 pathFolder = ''
+eigenfaces = np.array([])
 
 def Directory():
     pathGambar = filedialog.askopenfilename(title='Pilih Gambar Untuk Dites')
@@ -68,7 +67,7 @@ def ChooseFolder():
     time_lbl = Label(window, text=time_text, bg='#FFF7DF', font=("Arial", 25, "bold"), fg="#76460E")
     time_lbl.place(x=375, y=510)
 
-    imglbl1=Label(window, text=out, bg='#FFF7DF')#my_string_var1.set(out))
+    imglbl1=Label(window, text=out, bg='#FFF7DF')
     imglbl1.place(x=172, y=228)
 
     popupmsg("Proses mendapatkan gambar menjadi matriks pada folder "+out+" selesai")
@@ -79,7 +78,7 @@ def popupmsg(msg):
     popup.configure(background='#FFF7DF')
     popup.iconbitmap(r'./assets/icon.ico')
     popup.geometry("+%d+%d" % ((window.winfo_screenwidth() - 500) / 2, (window.winfo_screenheight() - 100) / 2))
-    popup.title("Yeay!")
+    popup.title("Notif")
     label = Label(popup, text=msg, font=("Arial", 10), bg='#FFF7DF', fg="#76460E")
     label.pack(side="top", fill="x", pady=10)
     B1 = Button(popup, text="Okay", command = popup.destroy)
@@ -89,9 +88,10 @@ def popupmsg(msg):
 def ImageProccess():
     global objPic
     global out
+    global hasil
     objPic = Directory()
     image1 = Image.open(objPic)
-    image1 = image1.resize((256, 256), Image.ANTIALIAS)
+    image1 = image1.resize((256, 256))
     image1X = ImageTk.PhotoImage(image1)
     label1 = Label(window, image=image1X, )
     label1.image = image1X
@@ -102,24 +102,64 @@ def ImageProccess():
 
     imglbl2.place(x=320, y=426)   
     hasil = getEigenFace.detectHasil(eigenfaces, filepath, objPic)
-    
-    persentase = round(hasil[1], ndigits=2)
-    persen_text = Label(window, text=str(persentase)+"%", bg='#FFF7DF', font=("Arial", 40, "bold"), fg="#76460E")
-    persen_text.place(x=50, y=425)
 
     elapsed_time_detection = getEigenFace.getElapsedTimeDetection()
     time_text = str(round(elapsed_time_detection, ndigits=2)) + " detik"
     time_lbl = Label(window, text=time_text, bg='#FFF7DF', font=("Arial", 25, "bold"), fg="#76460E")
     time_lbl.place(x=600, y=510)
 
-    image2 = Image.open(os.path.join(filepath, hasil[0]))
-    nama1=Label(window, text=hasil[0], bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")
-    nama1.place(x=620, y=426)
-    image2 = image2.resize((256, 256), Image.ANTIALIAS)
-    image2X = ImageTk.PhotoImage(image2)
-    label2 = Label(window, image=image2X, )
-    label2.image = image2X
-    label2.place(x=625, y=140)
+    if hasil[1] < 0.5:
+        image2 = Image.open(os.path.join(filepath, hasil[0]))
+        nama1=Label(window, text=hasil[0], bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")
+        nama1.place(x=620, y=426)
+        image2 = image2.resize((256, 256))
+        image2X = ImageTk.PhotoImage(image2)
+        label2 = Label(window, image=image2X, )
+        label2.image = image2X
+        label2.place(x=625, y=140)
+    else:
+        image2 = Image.open("./assets/notfound.png")
+        nama1=Label(window, text="Not Found", bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")
+        nama1.place(x=620, y=426)
+        image2 = image2.resize((256, 256))
+        image2X = ImageTk.PhotoImage(image2)
+        label2 = Label(window, image=image2X, )
+        label2.image = image2X
+        label2.place(x=625, y=140)
+
+def Webcam():
+    if (not eigenfaces.any()):
+        popupmsg("Mohon pilih dataset terlebih dahulu")
+    else:
+        cam = cv2.VideoCapture(0)
+        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        
+        while True:
+            _, img_cam = cam.read()
+
+            faces = face_cascade.detectMultiScale(img_cam, 1.1, 4)
+            
+            nama_cam = "NOT FOUND"
+
+            for (x, y, w, h) in faces:
+
+                if len(faces) > 0:
+                    hasil_cam = getEigenFace.detectCam(eigenfaces, filepath, img_cam)
+                    if hasil_cam[1] < 0.5:
+                        nama_cam = hasil_cam[0]
+
+                cv2.rectangle(img_cam, (x, y), (x+w, y+h), (255, 0, 0), 2)
+
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                if len(faces) > 0:
+                    cv2.putText(img_cam, nama_cam, (x, y-10), font, 0.9, (36,255,12), 2)
+                
+            cv2.imshow('Deteksi Webcam', img_cam)
+            k = cv2.waitKey(30) & 0xff
+            if k==27:
+                break
+        cam.release()
+
 
 def change_cursor(event):
     window.config(cursor="heart")
@@ -146,11 +186,11 @@ button1 = Button(window, image=window.img_inactive, border=0, bg='#FFF7DF', acti
 button1.place(x=40, y=280)
 button2 = Button(window, image=window.folder_inactive, border=0, bg='#FFF7DF', activebackground='#FFF7DF', command=ChooseFolder)
 button2.place(x=40, y=220)
-button3 = Button(window, image=window.result_inactive, border=0, bg='#FFF7DF', activebackground='#FFF7DF')
+button3 = Button(window, image=window.result_inactive, border=0, bg='#FFF7DF', activebackground='#FFF7DF', command=Webcam)
 button3.place(x=45, y=348)
-tipek_lbl = PhotoImage(file="./assets/typex.png")
-labeltipek = Label(window, image=tipek_lbl, border=0, bg='#FFF7DF')
-labeltipek.place(x=45, y=348)
+# tipek_lbl = PhotoImage(file="./assets/typex.png")
+# labeltipek = Label(window, image=tipek_lbl, border=0, bg='#FFF7DF')
+# labeltipek.place(x=45, y=348)
 
 button1.bind("<Enter>", on_enter1)
 button1.bind("<Leave>", on_leave1)
@@ -160,4 +200,5 @@ button3.bind("<Enter>", on_enter3)
 button3.bind("<Leave>", on_leave3)
 window.bind("<Motion>", change_cursor)
 
-window.mainloop()
+def main():
+    window.mainloop()
