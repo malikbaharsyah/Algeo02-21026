@@ -11,63 +11,65 @@ def getEigenFace(path):
     global subtracted_face
     global start_time_training
     global end_time_training
+    global evects
     start_time_training = time.time()
+    nData = len(os.listdir(path))
     facematrix = getFolder.folderToMatriks(path)
     facematrix_t = np.transpose(facematrix)
     mean_face = function.mean(facematrix_t)
     subtracted_face = function.selisih(facematrix_t, mean_face)
     cov = function.kovarian(subtracted_face)
+    cov = cov / nData
     evals = function.eigValVec(cov)[0]
     egvecs = function.eigValVec(cov)[1]
     idx = evals.argsort()[::-1]   
     evals = evals[idx]
     evects = egvecs[:,idx]
-    nData = len(os.listdir(path))
-    eigenfaces = np.matmul(subtracted_face, evects[:,0:nData-1])
+    evects = evects[:,0:nData-1]
+    evects = np.matmul(subtracted_face, evects)
+    norms = np.array([])
+    for i in range(0, nData-1):
+        norms = np.append(norms, function.EuclideanDistance(evects[:,i]))
+    evects = evects / norms
+    bobot = np.matmul(np.transpose(evects), subtracted_face)
     end_time_training = time.time()
-    return eigenfaces
+    return bobot
 
-def detectHasil(eigenfaces, datapath, testpath):
+def detectHasil(bobot, datapath, testpath):
     global start_time_detection
     global end_time_detection
     start_time_detection = time.time()
     testface = getFolder.getImageFromPath(testpath)
     testface = np.transpose(testface)
     testface = function.selisih(testface, mean_face)
-    proyeksi_test = np.matmul(np.transpose(eigenfaces), testface)
-    proyeksi_data = np.matmul(np.transpose(eigenfaces), subtracted_face)
-    min = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,0])
-    nama = os.listdir(datapath)[0]
-    max = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,0])
-    for i in range(1, len(os.listdir(datapath))):
-        temp = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,i])
-        if temp < min:
-            min = temp
-            nama = os.listdir(datapath)[i]
-        if temp > max:
-            max = temp
+    s = np.transpose(evects) * testface
+    diff = bobot - s
+    norms = np.array([])
+    for i in range(0, len(os.listdir(datapath))):
+        norms = np.append(norms, function.EuclideanDistance(diff[:,i]))
+    min = np.amin(norms)
+    max = np.amax(norms)
+    idx = np.argmin(norms)
+    nama = os.listdir(datapath)[idx]
     end_time_detection = time.time()
     return nama, min/max
 
-def detectCam(eigenfaces, datapath, img):
+def detectCam(bobot, datapath, img):
     testface = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     testface = faceAlignment.faceAlignment(testface)
     testface = testface.ravel()
     testface = np.matrix(testface)
     testface = np.transpose(testface)
     testface = function.selisih(testface, mean_face)
-    proyeksi_test = np.matmul(np.transpose(eigenfaces), testface)
-    proyeksi_data = np.matmul(np.transpose(eigenfaces), subtracted_face)
-    min = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,0])
-    nama = os.listdir(datapath)[0]
-    max = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,0])
-    for i in range(1, len(os.listdir(datapath))):
-        temp = function.EuclideanDistance(proyeksi_test - proyeksi_data[:,i])
-        if temp < min:
-            min = temp
-            nama = os.listdir(datapath)[i]
-        if temp > max:
-            max = temp
+    s = np.transpose(evects) * testface
+    diff = bobot - s
+    norms = np.array([])
+    for i in range(0, len(os.listdir(datapath))):
+        norms = np.append(norms, function.EuclideanDistance(diff[:,i]))
+    min = np.amin(norms)
+    max = np.amax(norms)
+    idx = np.argmin(norms)
+    nama = os.listdir(datapath)[idx]
     return nama, min/max
 
 def getElapsedTimeTraining():

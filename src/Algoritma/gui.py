@@ -107,7 +107,7 @@ def ImageProccess():
     time_lbl = Label(window, text=time_text, bg='#FFF7DF', font=("Arial", 25, "bold"), fg="#76460E")
     time_lbl.place(x=600, y=510)
 
-    if hasil[1] < 0.1:
+    if hasil[1] < 0.5:
         image2 = Image.open(os.path.join(filepath, hasil[0]))
         nama1=Label(window, text=hasil[0], bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")
         nama1.place(x=620, y=426)
