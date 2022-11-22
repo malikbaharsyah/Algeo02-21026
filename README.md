@@ -1,13 +1,15 @@
 # Tugas Besar 2 IF 2123 Aljabar Linier dan Geometri
 > Aplikasi Nilai Eigen dan EigenFace pada Pengenalan Wajah (Face Recognition)
 
+
+
 ## Table of Contents
 * [Deskripsi Umum](#deskripsi-umum)
 * [Teknologi](#teknologi)
 * [Fitur](#fitur)
 * [Tampilan](#tampilan)
-* [Struktur](#struktur)
-* [Cara menjalankan program](#cara-menjalankan-program)
+* [Struktur Program](#struktur-program)
+* [Cara Menjalankan Program](#cara-menjalankan-program)
 
 
 ## Deskripsi Umum
@@ -28,18 +30,20 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 - Face Recognition berdasarkan webcam
 
 
-## Tampilan
+
+## Tampilan 
 ### Tampilan Awal
 ![Tampilan.png]( src/Tampilan/Tampilan.png )
 
-### Tampilan Setelah Pencocokan Wajah
+### Tampilan Pencocokan Wajah dengan Gambar
+
 ![Tampilan1.png]( src/Tampilan/Tampilan1.png )
 
 ### Tampilan Pencocokan Wajah dengan Webcam
 ![Tampilan2.png]( src/Tampilan/Tampilan2.png )
 
 
-## Struktur
+## Struktur Program
 ```bash
 .
 │   README.md
@@ -55,7 +59,7 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 │   │       gui.py
 │   │       main.py
 │   │
-│   ├───Assets                        # Assets
+│   ├───Assets                       # Assets
 │   │       cam.png
 │   │       detect.png
 │   │       dilanbg1.png
@@ -71,7 +75,7 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 │   │       train.png
 │   │       typex.png
 │   │
-│   ├───Dataset                        # Dataset   
+│   ├───Dataset                      # Dataset   
 │   │       Copa.jpg
 │   │       Copa1.jpg
 │   │       Copa2.jpg
@@ -83,11 +87,11 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 │   │       Malik3.jpg
 │   │       Malik4.jpg
 │   │
-│   ├───Tampilan                      # Tampilan
+│   ├───Tampilan                     # Tampilan
 │   │       Tampilan.png
 │   │       Tampilan1.png
 │   │       
-└───test                              # Testing cases
+└───test                             # Testing cases
             Copa1.jpg
             Copa2.jpg
             Copa3.jpg
