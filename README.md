@@ -31,6 +31,7 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 
 ## Tampilan
 ![Tampilan.png]( src/Tampilan/Tampilan.png )
+![Tampilan1.png]( src/Tampilan/Tampilan1.png )
 
 ## Struktur
 
