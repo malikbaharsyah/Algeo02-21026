@@ -77,3 +77,5 @@ def getElapsedTimeTraining():
 
 def getElapsedTimeDetection():
     return end_time_detection - start_time_detection
+
+
