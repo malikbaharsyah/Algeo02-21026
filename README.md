@@ -32,7 +32,7 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
 ### Tampilan Awal
 ![Tampilan.png]( src/Tampilan/Tampilan.png )
 
-### Tampilan Setelah Pencocokan Wajah
+### Tampilan Setelah Pencocokan Wajah dengan Gambar
 ![Tampilan1.png]( src/Tampilan/Tampilan1.png )
 
 ### Tampilan Pencocokan Wajah dengan Webcam
@@ -105,6 +105,7 @@ Terdapat berbagai teknik untuk memeriksa citra wajah dari kumpulan citra yang su
             Malik4.jpg
 
 ```
+
 
 ## Cara menjalankan program
 1. Install seluruh library yang diperlukan (numpy, tkinter, opencv, pillow)
