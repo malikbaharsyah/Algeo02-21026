@@ -67,7 +67,7 @@ def ChooseFolder():
     time_lbl = Label(window, text=time_text, bg='#FFF7DF', font=("Arial", 25, "bold"), fg="#76460E")
     time_lbl.place(x=375, y=510)
 
-    imglbl1=Label(window, text=out, bg='#FFF7DF')
+    imglbl1=Label(window, text=out, bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")
     imglbl1.place(x=172, y=228)
 
     popupmsg("Proses mendapatkan gambar menjadi matriks pada folder "+out+" selesai")
@@ -78,7 +78,7 @@ def popupmsg(msg):
     popup.configure(background='#FFF7DF')
     popup.iconbitmap(r'./src/assets/icon.ico')
     popup.geometry("+%d+%d" % ((window.winfo_screenwidth() - 500) / 2, (window.winfo_screenheight() - 100) / 2))
-    popup.title("Notif")
+    popup.title("Yeay!!!")
     label = Label(popup, text=msg, font=("Arial", 10), bg='#FFF7DF', fg="#76460E")
     label.pack(side="top", fill="x", pady=10)
     B1 = Button(popup, text="Okay", command = popup.destroy)
@@ -98,8 +98,7 @@ def ImageProccess():
     label1.place(x=325, y=140)
     data = os.path.split(objPic)
     out=data[1]
-    imglbl2=Label(window, text=out, bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E")#my_string_var2.set(out))
-
+    imglbl2=Label(window, text=out, bg='#FFF7DF', font=("Arial", 11, "bold"), fg="#76460E", border=25)
     imglbl2.place(x=320, y=426)   
     hasil = getEigenFace.detectHasil(eigenfaces, filepath, objPic)
 
