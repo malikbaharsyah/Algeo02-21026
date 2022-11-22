@@ -78,7 +78,7 @@ def popupmsg(msg):
     popup.configure(background='#FFF7DF')
     popup.iconbitmap(r'./src/assets/icon.ico')
     popup.geometry("+%d+%d" % ((window.winfo_screenwidth() - 500) / 2, (window.winfo_screenheight() - 100) / 2))
-    popup.title("Yeay!!!")
+    popup.title("Notif")
     label = Label(popup, text=msg, font=("Arial", 10), bg='#FFF7DF', fg="#76460E")
     label.pack(side="top", fill="x", pady=10)
     B1 = Button(popup, text="Okay", command = popup.destroy)
